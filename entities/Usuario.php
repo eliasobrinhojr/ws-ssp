@@ -2,6 +2,8 @@
 
 class Usuario {
 
+    //query
+    private $sql = '';
     // Connection instance
     private $connection;
     // table name
@@ -26,7 +28,8 @@ class Usuario {
 
     //R
     public function read() {
-        
+        $this->sql = "select * from usuarios;";
+        return $this->connection->query($this->sql);
     }
 
     //U

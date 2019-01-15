@@ -2,7 +2,7 @@
 
 class DBClass {
 
-    private $host = "srvmaodb";
+    private $host = "147.2.10.10";
     private $username = "user_ssp";
     private $password = "ssppass";
     private $database = "sspdb";
