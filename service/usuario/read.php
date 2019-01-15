@@ -9,9 +9,7 @@ $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
 $usuario = new Usuario($connection);
-
 $stmt = $usuario->read();
-
 
 $count = $stmt->rowCount();
 

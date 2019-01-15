@@ -10,7 +10,6 @@ include_once '../../entities/sistema.php';
 
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
-
 $sistema = new Sistema($connection);
 
 $data = json_decode(file_get_contents("php://input"));
