@@ -17,12 +17,18 @@ class Modulo {
 
     //C
     public function create() {
-        
+        $stmt = $this->connection->prepare('INSERT INTO modulos (modDescricao, sisIdSistema) '
+                . 'VALUES(:descricao, :idSistema)');
+        $exec = $stmt->execute(array(
+            ':descricao' => $this->carDescricao,
+            ':idSistema' => $this->sisIdSistema
+        ));
+        return $exec;
     }
 
     //R
     public function read() {
-        
+        return $this->connection->query("select * from modulos;");
     }
 
     //U

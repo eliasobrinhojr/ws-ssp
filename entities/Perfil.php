@@ -1,6 +1,6 @@
 <?php
 
-class Transaction {
+class Perfil {
 
     // Connection instance
     private $connection;
@@ -17,12 +17,18 @@ class Transaction {
 
     //C
     public function create() {
-        
+        $stmt = $this->connection->prepare('INSERT INTO perfis (perDescricao, sisIdSistema) '
+                . 'VALUES(:descricao, :idSistema)');
+        $exec = $stmt->execute(array(
+            ':descricao' => $this->perDescricao,
+            ':idSistema' => $this->sisIdSistema
+        ));
+        return $exec;
     }
 
     //R
     public function read() {
-        
+        return $this->connection->query("select * from perfis;");
     }
 
     //U

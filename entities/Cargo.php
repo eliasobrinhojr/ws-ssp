@@ -16,12 +16,17 @@ class Cargo {
 
     //C
     public function create() {
-        
+        $stmt = $this->connection->prepare('INSERT INTO cargos (carDescricao) '
+                . 'VALUES(:descricao)');
+        $exec = $stmt->execute(array(
+            ':descricao' => $this->carDescricao
+        ));
+        return $exec;
     }
 
     //R
     public function read() {
-        
+        return $this->connection->query("select * from cargos;");
     }
 
     //U

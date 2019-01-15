@@ -17,12 +17,18 @@ class Menu {
 
     //C
     public function create() {
-        
+        $stmt = $this->connection->prepare('INSERT INTO menus (menDescricao, modIdModulo) '
+                . 'VALUES(:descricao, :idModulo)');
+        $exec = $stmt->execute(array(
+            ':descricao' => $this->menDescricao,
+            ':idModulo' => $this->modIdModulo
+        ));
+        return $exec;
     }
 
     //R
     public function read() {
-        
+        return $this->connection->query("select * from menus;");
     }
 
     //U

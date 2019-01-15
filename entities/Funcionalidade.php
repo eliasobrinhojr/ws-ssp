@@ -17,12 +17,18 @@ class Funcionalidade {
 
     //C
     public function create() {
-        
+        $stmt = $this->connection->prepare('INSERT INTO funcoes (funDescricao, menIdMenu) '
+                . 'VALUES(:descricao, :menuId)');
+        $exec = $stmt->execute(array(
+            ':descricao' => $this->funDescricao,
+            ':menuId' => $this->menIdMenu
+        ));
+        return $exec;
     }
 
     //R
     public function read() {
-        
+        return $this->connection->query("select * from funcoes;");
     }
 
     //U
