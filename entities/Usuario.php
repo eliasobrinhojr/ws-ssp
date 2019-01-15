@@ -23,7 +23,19 @@ class Usuario {
 
     //C
     public function create() {
-        
+
+        $stmt = $this->connection->prepare('INSERT INTO usuarios (usuLogin, domIdDominio, usuNome, usuEmail, usuCorporativo, carIdCargo) '
+                . 'VALUES(:login, :dominio_id, :nome, :email, :corporativo, :cargo)');
+        $exec = $stmt->execute(array(
+            ':login' => $this->usuLogin,
+            ':dominio_id' => $this->domIdDominio,
+            ':nome' => $this->usuNome,
+            ':email' => $this->usuEmail,
+            ':corporativo' => $this->usuCorporativo,
+            ':cargo' => $this->carIdCargo
+        ));
+
+        return $exec;
     }
 
     //R
