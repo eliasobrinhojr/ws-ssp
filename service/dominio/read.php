@@ -3,13 +3,13 @@
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../../config/dbclass.php';
-include_once '../../entities/usuario.php';
+include_once '../../entities/dominio.php';
 
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
-$usuario = new Usuario($connection);
-$stmt = $usuario->read();
+$dominio = new Dominio($connection);
+$stmt = $dominio->read();
 
 $count = $stmt->rowCount();
 

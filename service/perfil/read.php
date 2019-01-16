@@ -3,7 +3,7 @@
 header("Content-Type: application/json; charset=UTF-8");
 
 include_once '../../config/dbclass.php';
-include_once '../../entities/usuario.php';
+include_once '../../entities/perfil.php';
 
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();

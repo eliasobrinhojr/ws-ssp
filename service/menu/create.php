@@ -6,29 +6,30 @@ header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include_once '../../config/dbclass.php';
-include_once '../../entities/usuario.php';
+include_once '../../entities/menu.php';
 
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
-$usuario = new Usuario($connection);
+$menu = new Menu($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$usuario->usuLogin = $data->login;
-$usuario->domIdDominio = $data->dominio_id;
-$usuario->usuEmail = $data->email;
-$usuario->carIdCargo = $data->cargo_id;
-$usuario->usuNome = $data->nome;
-$usuario->usuCorporativo = $data->corporativo;
+//$menu
+//$usuario->usuLogin = $data->login;
+//$usuario->domIdDominio = $data->dominio_id;
+//$usuario->usuEmail = $data->email;
+//$usuario->carIdCargo = $data->cargo_id;
+//$usuario->usuNome = $data->nome;
+//$usuario->usuCorporativo = $data->corporativo;
 
-if ($usuario->create()) {
+if ($menu->create()) {
     echo '{';
-    echo '"message": "Usuario foi criado."';
+    echo '"message": "Menu foi criado."';
     echo '}';
 } else {
     echo '{';
-    echo '"message": "Erro ao criar usuario."';
+    echo '"message": "Erro ao criar Menu."';
     echo '}';
 }
 ?>
