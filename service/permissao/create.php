@@ -15,13 +15,8 @@ $permissao = new Permissao($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-//$permissao
-//$usuario->usuLogin = $data->login;
-//$usuario->domIdDominio = $data->dominio_id;
-//$usuario->usuEmail = $data->email;
-//$usuario->carIdCargo = $data->cargo_id;
-//$usuario->usuNome = $data->nome;
-//$usuario->usuCorporativo = $data->corporativo;
+$permissao->perIdPerfil = $data->perfil_id;
+$permissao->funIdFuncoes = $data->funcao_id;
 
 if ($permissao->create()) {
     echo '{';

@@ -8,37 +8,31 @@ include_once '../../entities/permissao.php';
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
-$usuario = new Usuario($connection);
-$stmt = $usuario->read();
+$permissao = new Permissao($connection);
+$stmt = $permissao->read();
 
 $count = $stmt->rowCount();
 
 if ($count > 0) {
 
-    $usuarios = array();
-    $usuarios["body"] = array();
-    $usuarios["count"] = $count;
+    $permissoes = array();
+    $permissoes["body"] = array();
+    $permissoes["count"] = $count;
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         extract($row);
 
-        $usuario = array(
-            "usuIdUsuario" => $usuIdUsuario,
-            "usuLogin" => $usuLogin,
-            "domIdDominio" => $domIdDominio,
-            "usuNome" => $usuNome,
-            "usuEmail" => $usuEmail,
-            "usuCorporativo" => $usuCorporativo,
-            "carIdCargo" => $carIdCargo
+        $perm = array(
+            "perIdPerfil" => $perIdPerfil,
+            "funIdFuncoes" => $funIdFuncoes
         );
 
-        array_push($usuarios["body"], $usuario);
+        array_push($permissoes["body"], $perm);
     }
 
-    echo json_encode($usuarios);
+    echo json_encode($permissoes);
 } else {
-    
     echo json_encode(
             array("body" => array(), "count" => 0)
     );
