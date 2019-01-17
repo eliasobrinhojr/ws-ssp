@@ -8,37 +8,33 @@ include_once '../../entities/menu.php';
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
-$usuario = new Usuario($connection);
-$stmt = $usuario->read();
+$menu = new Menu($connection);
+$stmt = $menu->read();
 
 $count = $stmt->rowCount();
 
 if ($count > 0) {
 
-    $usuarios = array();
-    $usuarios["body"] = array();
-    $usuarios["count"] = $count;
+    $menus = array();
+    $menus["body"] = array();
+    $menus["count"] = $count;
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         extract($row);
 
-        $usuario = array(
-            "usuIdUsuario" => $usuIdUsuario,
-            "usuLogin" => $usuLogin,
-            "domIdDominio" => $domIdDominio,
-            "usuNome" => $usuNome,
-            "usuEmail" => $usuEmail,
-            "usuCorporativo" => $usuCorporativo,
-            "carIdCargo" => $carIdCargo
+        $menu = array(
+            "menIdmenu" => $menIdMenu,
+            "menDescricao" => $menDescricao,
+            "modIdModulo" => $modIdModulo
         );
 
-        array_push($usuarios["body"], $usuario);
+        array_push($menus["body"], $menu);
     }
 
-    echo json_encode($usuarios);
+    echo json_encode($menus);
 } else {
-    
+
     echo json_encode(
             array("body" => array(), "count" => 0)
     );

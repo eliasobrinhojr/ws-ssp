@@ -15,13 +15,8 @@ $menu = new Menu($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-//$menu
-//$usuario->usuLogin = $data->login;
-//$usuario->domIdDominio = $data->dominio_id;
-//$usuario->usuEmail = $data->email;
-//$usuario->carIdCargo = $data->cargo_id;
-//$usuario->usuNome = $data->nome;
-//$usuario->usuCorporativo = $data->corporativo;
+$menu->menDescricao = $data->descricao;
+$menu->modIdModulo = $data->id_modulo;
 
 if ($menu->create()) {
     echo '{';
