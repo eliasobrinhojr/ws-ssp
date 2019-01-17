@@ -8,35 +8,31 @@ include_once '../../entities/modulo.php';
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
-$usuario = new Usuario($connection);
-$stmt = $usuario->read();
+$modulo = new Modulo($connection);
+$stmt = $modulo->read();
 
 $count = $stmt->rowCount();
 
 if ($count > 0) {
 
-    $usuarios = array();
-    $usuarios["body"] = array();
-    $usuarios["count"] = $count;
+    $modulos = array();
+    $modulos["body"] = array();
+    $modulos["count"] = $count;
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         extract($row);
 
-        $usuario = array(
-            "usuIdUsuario" => $usuIdUsuario,
-            "usuLogin" => $usuLogin,
-            "domIdDominio" => $domIdDominio,
-            "usuNome" => $usuNome,
-            "usuEmail" => $usuEmail,
-            "usuCorporativo" => $usuCorporativo,
-            "carIdCargo" => $carIdCargo
+        $modulo = array(
+            "modIdModulo" => $modIdModulo,
+            "modDescricao" => $modDescricao,
+            "sisIdSistema" => $sisIdSistema
         );
 
-        array_push($usuarios["body"], $usuario);
+        array_push($modulos["body"], $modulo);
     }
 
-    echo json_encode($usuarios);
+    echo json_encode($modulos);
 } else {
     
     echo json_encode(

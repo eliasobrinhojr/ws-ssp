@@ -15,13 +15,8 @@ $modulo = new Modulo($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-//$modulo
-//$usuario->usuLogin = $data->login;
-//$usuario->domIdDominio = $data->dominio_id;
-//$usuario->usuEmail = $data->email;
-//$usuario->carIdCargo = $data->cargo_id;
-//$usuario->usuNome = $data->nome;
-//$usuario->usuCorporativo = $data->corporativo;
+$modulo->modDescricao = $data->descricao;
+$modulo->sisIdSistema = $data->sistema_id;
 
 if ($modulo->create()) {
     echo '{';
