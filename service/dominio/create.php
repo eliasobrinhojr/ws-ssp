@@ -14,13 +14,9 @@ $connection = $dbclass->getConnection();
 $dominio = new Dominio($connection);
 
 $data = json_decode(file_get_contents("php://input"));
-//$dominio
-//$usuario->usuLogin = $data->login;
-//$usuario->domIdDominio = $data->dominio_id;
-//$usuario->usuEmail = $data->email;
-//$usuario->carIdCargo = $data->cargo_id;
-//$usuario->usuNome = $data->nome;
-//$usuario->usuCorporativo = $data->corporativo;
+
+$dominio->domDominio = $data->dominio;
+$dominio->domServidor = $data->servidor;
 
 if ($dominio->create()) {
     echo '{';

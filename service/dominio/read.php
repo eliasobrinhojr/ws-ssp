@@ -15,28 +15,24 @@ $count = $stmt->rowCount();
 
 if ($count > 0) {
 
-    $usuarios = array();
-    $usuarios["body"] = array();
-    $usuarios["count"] = $count;
+    $dominios = array();
+    $dominios["body"] = array();
+    $dominios["count"] = $count;
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         extract($row);
 
-        $usuario = array(
-            "usuIdUsuario" => $usuIdUsuario,
-            "usuLogin" => $usuLogin,
+        $dominio = array(
             "domIdDominio" => $domIdDominio,
-            "usuNome" => $usuNome,
-            "usuEmail" => $usuEmail,
-            "usuCorporativo" => $usuCorporativo,
-            "carIdCargo" => $carIdCargo
+            "domDominio" => $domDominio,
+            "domServidor" => $domServidor
         );
 
-        array_push($usuarios["body"], $usuario);
+        array_push($dominios["body"], $dominio);
     }
 
-    echo json_encode($usuarios);
+    echo json_encode($dominios);
 } else {
     
     echo json_encode(
