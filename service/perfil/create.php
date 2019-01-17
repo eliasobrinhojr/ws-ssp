@@ -15,13 +15,8 @@ $perfil = new Perfil($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-//$perfil
-//$usuario->usuLogin = $data->login;
-//$usuario->domIdDominio = $data->dominio_id;
-//$usuario->usuEmail = $data->email;
-//$usuario->carIdCargo = $data->cargo_id;
-//$usuario->usuNome = $data->nome;
-//$usuario->usuCorporativo = $data->corporativo;
+$perfil->perDescricao = $data->descricao;
+$perfil->sisIdSistema = $data->sistema_id;
 
 if ($perfil->create()) {
     echo '{';
