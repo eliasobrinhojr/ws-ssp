@@ -8,35 +8,31 @@ include_once '../../entities/funcionalidade.php';
 $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
-$usuario = new Usuario($connection);
-$stmt = $usuario->read();
+$funcionalidade = new Funcionalidade($connection);
+$stmt = $funcionalidade->read();
 
 $count = $stmt->rowCount();
 
 if ($count > 0) {
 
-    $usuarios = array();
-    $usuarios["body"] = array();
-    $usuarios["count"] = $count;
+    $funcionalidades = array();
+    $funcionalidades["body"] = array();
+    $funcionalidades["count"] = $count;
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
         extract($row);
 
-        $usuario = array(
-            "usuIdUsuario" => $usuIdUsuario,
-            "usuLogin" => $usuLogin,
-            "domIdDominio" => $domIdDominio,
-            "usuNome" => $usuNome,
-            "usuEmail" => $usuEmail,
-            "usuCorporativo" => $usuCorporativo,
-            "carIdCargo" => $carIdCargo
+        $funcao = array(
+            "funIdFuncoes" => $funIdFuncoes,
+            "funDescricao" => $funDescricao,
+            "menIdMenu" => $menIdMenu
         );
 
-        array_push($usuarios["body"], $usuario);
+        array_push($funcionalidades["body"], $funcao);
     }
 
-    echo json_encode($usuarios);
+    echo json_encode($funcionalidades);
 } else {
     
     echo json_encode(
