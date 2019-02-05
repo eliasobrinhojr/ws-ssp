@@ -44,15 +44,7 @@ class Usuario {
         return $this->connection->query($this->sql);
     }
 
-    //U
-    public function update() {
-        
-    }
-
-    //D
-    public function delete() {
-        
-    }
+    
 
 
    public function readOne(){

@@ -16,19 +16,23 @@ class Responsavel {
 
     //C
     public function create() {
-        $stmt = $this->connection->prepare('INSERT INTO empresaresponsavel (emrNome, emrCPF) '
+        $stmt = $this->connection->prepare('INSERT INTO ' . $this->table_name . ' (emrNome, emrCPF) '
                 . 'VALUES(:nome, :cpf)');
         $exec = $stmt->execute(array(
             ':nome' => $this->emrNome,
-            ':cpf'=> $this->emrCPF
+            ':cpf' => $this->emrCPF
         ));
 
-        return $this->connection->lastInsertId();
+        return $exec ? $this->connection->lastInsertId() : $exec;
     }
 
     //R
     public function read() {
         return $this->connection->query("select * from $this->table_name;");
+    }
+
+    public function readOne() {
+        return $this->connection->query("select * from $this->table_name where emrNome = '$this->emrNome' and emrCPF = '$this->emrCPF';");
     }
 
     //U

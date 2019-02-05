@@ -17,30 +17,69 @@ $responsavel = new Responsavel($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$empresa->empidEmpresas = $data->idEmp;
-$empresa->empCNPJ = $data->cnpj;
-$empresa->empInscMunicipal = $data->inscMunicipal;
-$empresa->empRazaoSocial = $data->razaoSocial;
-$empresa->empEnderecoNumero = $data->numero;
-$empresa->EmpresaAtividade_emaidEmpresaAtividade = $data->id_atividade;
-$empresa->empEnderecoComplemento = $data->complemento;
-$empresa->Logradouro_logIdLogradouro = $data->logId;
+$empresa->empidEmpresas = trim($data->idEmp);
+$empresa->empCNPJ = trim($data->cnpj);
+$empresa->empInscMunicipal = trim($data->inscMunicipal);
+$empresa->empRazaoSocial = trim($data->razaoSocial);
+$empresa->empEnderecoNumero = trim($data->numero);
+$empresa->EmpresaAtividade_emaidEmpresaAtividade = trim($data->id_atividade);
+$empresa->empEnderecoComplemento = trim($data->complemento);
+$empresa->Logradouro_logIdLogradouro = trim($data->logId);
 
 //salvar responsavel
-
-$responsavel->emrNome = $data->respNome;
+$responsavel->emrNome = trim($data->respNome);
 $responsavel->emrCPF = str_replace(".", "", $data->respCpf);
 $responsavel->emrCPF = str_replace("-", "", $responsavel->emrCPF);
-$empresa->EmpresaResponsavel_emridEmpresaResponsavel = $responsavel->create();
+$responsavel->emrCPF = trim($responsavel->emrCPF);
 
+$stmt = $responsavel->readOne();
 
-if ($empresa->create()) {
-    echo '{';
-    echo '"message": "Empresa foi criada."';
-    echo '}';
+$count = $stmt->rowCount();
+if ($count === 0) {
+    $var = $responsavel->create();
+
+    if ($var === false) {
+        echo '{';
+        echo '"message": "Erro salvar responsável."';
+        echo '}';
+        exit;
+    } else {
+        $empresa->EmpresaResponsavel_emridEmpresaResponsavel = $var;
+
+        if ($empresa->create()) {
+            echo '{';
+            echo '"message": "Empresa foi criada."';
+            echo '}';
+            exit;
+        } else {
+            echo '{';
+            echo '"message": "Erro ao criar empresa."';
+            echo '}';
+            exit;
+        }
+    }
 } else {
-    echo '{';
-    echo '"message": "Erro ao criar empresa."';
-    echo '}';
+    $id_resp = null;
+
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        extract($row);
+        $id_resp = $emridEmpresaResponsavel;
+    }
+
+    if ($id_resp != NULL) {
+        $empresa->EmpresaResponsavel_emridEmpresaResponsavel = $id_resp;
+        if ($empresa->create()) {
+            echo '{';
+            echo '"message": "Empresa foi criada."';
+            echo '}';
+        } else {
+            echo '{';
+            echo '"message": "Erro ao criar empresa."';
+            echo '}';
+        }
+    } else {
+        echo '{';
+        echo '"message": "Erro ao consultar responsável."';
+        echo '}';
+    }
 }
-?>
