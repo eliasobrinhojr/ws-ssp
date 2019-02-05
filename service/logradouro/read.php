@@ -26,7 +26,7 @@ if ($count > 0) {
 
         $obj = array(
             "id" => $logIdLogradouro,
-            "name" => $logNome
+            "name" => $logNome.' - '.$logCEP
         );
 
         array_push($logradouros["body"], $obj);
