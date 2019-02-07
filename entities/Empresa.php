@@ -19,6 +19,7 @@ class Empresa {
 
     public function __construct($connection) {
         $this->connection = $connection;
+        $this->connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
 
 //C
@@ -56,7 +57,8 @@ class Empresa {
                         ':complemento' => $this->empEnderecoComplemento
             ));
         } catch (Exception $ex) {
-            throw new $ex;
+            echo $ex->getMessage();
+            return false;
         }
     }
 

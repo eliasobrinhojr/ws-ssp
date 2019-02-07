@@ -17,7 +17,7 @@ $responsavel = new Responsavel($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$empresa->empidEmpresas = trim($data->idEmp); 
+$empresa->empidEmpresas = trim($data->idEmp);
 $empresa->empCNPJ = str_replace(".", "", trim($data->cnpj));
 $empresa->empCNPJ = str_replace("-", "", $empresa->empCNPJ);
 $empresa->empCNPJ = str_replace("/", "", $empresa->empCNPJ);
@@ -50,6 +50,8 @@ if ($count === 0) {
     } else {
         $empresa->EmpresaResponsavel_emridEmpresaResponsavel = $var;
 
+
+
         if ($empresa->create()) {
             echo '{';
             echo '"message": "Empresa foi criada."';
@@ -72,6 +74,7 @@ if ($count === 0) {
 
     if ($id_resp != NULL) {
         $empresa->EmpresaResponsavel_emridEmpresaResponsavel = $id_resp;
+      
         if ($empresa->create()) {
             echo '{';
             echo '"message": "Empresa foi criada."';
