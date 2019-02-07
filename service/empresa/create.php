@@ -17,8 +17,12 @@ $responsavel = new Responsavel($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
-$empresa->empidEmpresas = trim($data->idEmp);
-$empresa->empCNPJ = trim($data->cnpj);
+$empresa->empidEmpresas = trim($data->idEmp); 
+$empresa->empCNPJ = str_replace(".", "", trim($data->cnpj));
+$empresa->empCNPJ = str_replace("-", "", $empresa->empCNPJ);
+$empresa->empCNPJ = str_replace("/", "", $empresa->empCNPJ);
+$empresa->empCNPJ = trim($empresa->empCNPJ);
+
 $empresa->empInscMunicipal = trim($data->inscMunicipal);
 $empresa->empRazaoSocial = trim($data->razaoSocial);
 $empresa->empEnderecoNumero = trim($data->numero);

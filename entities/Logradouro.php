@@ -36,6 +36,22 @@ class Logradouro {
         return $this->connection->query("select * from $this->table_name where cidIdCidade = $this->cidIdCidade;");
     }
 
+    public function readByCep() {
+
+        $query = "select 
+                    lg.logIdLogradouro as logId, 
+                    lg.logNome as logNome, 
+                    lg.logCEP as logCep, 
+                    c.cidIdCidade as cidadeId, 
+                    c.cidNome as cidadeNome, 
+                    est.estSigla as estSigla
+                    from $this->table_name lg
+                    join cidades c on c.cidIdCidade = lg.cidIdCidade
+                    join estados est on est.estIdEstado = c.estIdEstado
+                    where logCEP = '$this->logCEP';";
+        return $this->connection->query($query);
+    }
+
     //U
     public function update() {
         
