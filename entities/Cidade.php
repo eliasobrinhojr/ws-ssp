@@ -7,7 +7,7 @@ class Cidade {
     // table name
     private $table_name = "cidades";
     // table columns
-    
+
     public $estIdEstado;
     public $cidCodIBGE;
     public $cidIdCidade;
@@ -27,10 +27,14 @@ class Cidade {
 //        ));
 //        return $exec;
     }
-    
+
     //R
     public function read() {
         return $this->connection->query("select * from cidades;");
+    }
+
+    public function readByCidadeAndUf($uf) {
+        return $this->connection->query("select * from $this->table_name cid join estados est on est.estIdEstado = cid.estIdEstado where cid.cidNome = '$this->cidNome' and est.estSigla = '$uf';");
     }
 
     //U

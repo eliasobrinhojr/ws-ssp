@@ -1,6 +1,6 @@
 <?php
 
-ini_set('memory_limit', '-1');
+
 
 class Logradouro {
 
@@ -22,13 +22,15 @@ class Logradouro {
 
     //C
     public function create() {
-        return 0;
-//        $stmt = $this->connection->prepare('INSERT INTO cargos (carDescricao) '
-//                . 'VALUES(:descricao)');
-//        $exec = $stmt->execute(array(
-//            ':descricao' => $this->carDescricao
-//        ));
-//        return $exec;
+        $stmt = $this->connection->prepare("INSERT INTO $this->table_name (logNome, logCEP, logComplemento, cidIdCidade) "
+                . "VALUES(:logNome, :logCEP, :logComplemento, :cidIdCidade)");
+        $exec = $stmt->execute(array(
+            ':logNome' => $this->logNome,
+            ':logCEP' => $this->logCEP,
+            ':logComplemento' => $this->logComplemento,
+            ':cidIdCidade' => $this->cidIdCidade
+        ));
+        return $exec;
     }
 
     //R
@@ -65,7 +67,7 @@ class Logradouro {
                     join cidades c on c.cidIdCidade = lg.cidIdCidade
                     join estados est on est.estIdEstado = c.estIdEstado
                     where logCEP = '$this->logCEP' and lg.cidIdCidade = $this->cidIdCidade;";
-        
+
         return $this->connection->query($query);
     }
 
