@@ -17,6 +17,13 @@ $cidade = new Cidade($connection);
 
 $data = json_decode(file_get_contents("php://input"));
 
+if($data->cidIdCidade == 0 || $data->cidIdCidade == null){
+    echo '{';
+    echo '"cod": 0';
+    echo '}';
+    exit;
+}
+
 $logradouro->logCEP = str_replace(".", "", trim($data->logCEP));
 $logradouro->logCEP = str_replace("-", "", $logradouro->logCEP);
 $logradouro->logComplemento = $data->logComplemento;
