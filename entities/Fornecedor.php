@@ -14,6 +14,7 @@ class Fornecedor {
     public $forEnderecoNumero;
     public $forIdFornecedor;
     public $forINSS;
+    public $forNome;
 
     public function __construct($connection) {
         $this->connection = $connection;
@@ -22,27 +23,23 @@ class Fornecedor {
 
 //C
     public function create() {
+         $stmt = $this->connection->prepare("INSERT INTO $this->table_name (forTipo, forCNPJ_CPF, logIdLogradouro, forEnderecoComplemento, forEnderecoNumero, forINSS)". "VALUES(:forTipo, :forCNPJ_CPF, :logIdLogradouro, :forEnderecoComplemento, :forEnderecoNumero, :forINSS, :forNome)");
 
-        $stmt = $this->connection->prepare('INSERT INTO ' . $this->table_name . '(forTipo,'
-                . 'forCNPJ_CPF,'
-                . 'logIdLogradouro,'
-                . 'forEnderecoComplemento,'
-                . 'forEnderecoNumero,'
-                . 'forINSS);');
-
-        try {
+              try {
             return $stmt->execute(array(
                         ':forTipo' => $this->forTipo,
                         ':forCNPJ_CPF' => $this->forCNPJ_CPF,
                         ':logIdLogradouro' => $this->logIdLogradouro,
                         ':forEnderecoComplemento' => $this->forEnderecoComplemento,
                         ':forEnderecoNumero' => $this->forEnderecoNumero,
-                        ':forINSS' => $this->forINSS
+                        ':forINSS' => $this->forINSS,
+                        ':forNome' => $this->forNome
             ));
         } catch (Exception $ex) {
             echo $ex->getMessage();
             return false;
         }
+
     }
 
 //R

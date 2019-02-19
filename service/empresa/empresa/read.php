@@ -9,33 +9,62 @@ $dbclass = new DBClass();
 $connection = $dbclass->getConnection();
 
 $empresa = new Empresa($connection);
-$stmt = $empresa->read();
 
-$count = $stmt->rowCount();
+$acao = $_GET != NULL ? $_GET['acao'] : '';
 
-if ($count > 0) {
+if($acao == 'all'){
+    $stmt = $empresa->read();
+    $count = $stmt->rowCount();
 
-    $empresas = array();
-    $empresas["body"] = array();
-    $empresas["count"] = $count;
+    if ($count > 0) {
 
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        $empresas = array();
+        $empresas["body"] = array();
+        $empresas["count"] = $count;
 
-        extract($row);
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
 
-        $obj = array(
-            "id_empresa" => $empidEmpresas
+            array_push($empresas["body"], $row);
+        }
+
+        echo json_encode($empresas);
+    } else {
+
+        echo json_encode(
+                array("body" => array(), "count" => 0)
         );
+    } 
 
-        array_push($empresas["body"], $obj);
-    }
 
-    echo json_encode($empresas);
 } else {
+   $stmt = $empresa->read();
+    $count = $stmt->rowCount();
 
-    echo json_encode(
-            array("body" => array(), "count" => 0)
-    );
+    if ($count > 0) {
+
+        $empresas = array();
+        $empresas["body"] = array();
+        $empresas["count"] = $count;
+
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+
+            extract($row);
+
+            $obj = array(
+                "id_empresa" => $empidEmpresas
+            );
+
+            array_push($empresas["body"], $obj);
+        }
+
+        echo json_encode($empresas);
+    } else {
+
+        echo json_encode(
+                array("body" => array(), "count" => 0)
+        );
+    } 
 }
+
 
 ?>

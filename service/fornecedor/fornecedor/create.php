@@ -22,72 +22,21 @@ $fornecedor->forCNPJ_CPF = str_replace("-", "", $fornecedor->forCNPJ_CPF);
 $fornecedor->forCNPJ_CPF = str_replace("/", "", $fornecedor->forCNPJ_CPF);
 $fornecedor->logIdLogradouro = $data->logIdLogradouro;
 $fornecedor->forEnderecoComplemento = $data->forEnderecoComplemento;
-$fornecedor->forEnderecoNumero = $data->forEnderecoNumero;
+$fornecedor->forEnderecoNumero = intval($data->forEnderecoNumero);
 $fornecedor->forINSS = $data->forINSS;
 $fornecedor->forTipo = $data->forTipo == 'J' ? 1 : 0;
+$fornecedor->forNome = $data->forNome;
 
+echo '<pre>';
+print_r($fornecedor);
+exit;
 
-if ($fornecedor->create()) {
-    echo '{';
-    echo '"message": "Fornecedor foi criado."';
-    echo '}';
-} else {
-    echo '{';
-    echo '"message": "Erro ao criar fornecedor."';
-    echo '}';
-}
-
-// $stmt = $responsavel->readOne();
-
-// $count = $stmt->rowCount();
-// if ($count === 0) {
-//     $var = $responsavel->create();
-
-//     if ($var === false) {
-//         echo '{';
-//         echo '"message": "Erro salvar responsável."';
-//         echo '}';
-//         exit;
-//     } else {
-//         $empresa->EmpresaResponsavel_emridEmpresaResponsavel = $var;
-
-
-
-//         if ($empresa->create()) {
-//             echo '{';
-//             echo '"message": "Empresa foi criada."';
-//             echo '}';
-//             exit;
-//         } else {
-//             echo '{';
-//             echo '"message": "Erro ao criar empresa."';
-//             echo '}';
-//             exit;
-//         }
-//     }
+// if ($fornecedor->create()) {
+//     echo '{';
+//     echo '"message": "Fornecedor foi criado."';
+//     echo '}';
 // } else {
-//     $id_resp = null;
-
-//     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-//         extract($row);
-//         $id_resp = $emridEmpresaResponsavel;
-//     }
-
-//     if ($id_resp != NULL) {
-//         $empresa->EmpresaResponsavel_emridEmpresaResponsavel = $id_resp;
-      
-//         if ($empresa->create()) {
-//             echo '{';
-//             echo '"message": "Empresa foi criada."';
-//             echo '}';
-//         } else {
-//             echo '{';
-//             echo '"message": "Erro ao criar empresa."';
-//             echo '}';
-//         }
-//     } else {
-//         echo '{';
-//         echo '"message": "Erro ao consultar responsável."';
-//         echo '}';
-//     }
+//     echo '{';
+//     echo '"message": "Erro ao criar fornecedor."';
+//     echo '}';
 // }

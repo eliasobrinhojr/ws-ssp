@@ -67,6 +67,7 @@ class Empresa {
         return $this->connection->query("select * from $this->table_name;");
     }
 
+
 //U
     public function update() {
         
