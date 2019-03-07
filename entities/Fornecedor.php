@@ -18,28 +18,27 @@ class Fornecedor {
 
     public function __construct($connection) {
         $this->connection = $connection;
-      
     }
 
 //C
     public function create() {
-         $stmt = $this->connection->prepare("INSERT INTO $this->table_name (forTipo, forCNPJ_CPF, logIdLogradouro, forEnderecoComplemento, forEnderecoNumero, forINSS)". "VALUES(:forTipo, :forCNPJ_CPF, :logIdLogradouro, :forEnderecoComplemento, :forEnderecoNumero, :forINSS, :forNome)");
+        $stmt = $this->connection->prepare("INSERT INTO $this->table_name (forTipo, forCNPJ_CPF, logIdLogradouro, forEnderecoComplemento, forEnderecoNumero, forINSS, forNome) VALUES(:forTipo, :forCNPJ_CPF, :logIdLogradouro, :forEnderecoComplemento, :forEnderecoNumero, :forINSS, :forNome)");
 
-              try {
-            return $stmt->execute(array(
-                        ':forTipo' => $this->forTipo,
-                        ':forCNPJ_CPF' => $this->forCNPJ_CPF,
-                        ':logIdLogradouro' => $this->logIdLogradouro,
-                        ':forEnderecoComplemento' => $this->forEnderecoComplemento,
-                        ':forEnderecoNumero' => $this->forEnderecoNumero,
-                        ':forINSS' => $this->forINSS,
-                        ':forNome' => $this->forNome
-            ));
+        try {
+            $exec = $stmt->execute(array(
+                ':forTipo' => intval($this->forTipo),
+                ':forCNPJ_CPF' => $this->forCNPJ_CPF,
+                ':logIdLogradouro' => intval($this->logIdLogradouro),
+                ':forEnderecoComplemento' => $this->forEnderecoComplemento,
+                ':forEnderecoNumero' => intval($this->forEnderecoNumero),
+                ':forINSS' => $this->forINSS,
+                ':forNome' => $this->forNome));
+
+            return $exec ? $this->connection->lastInsertId() : $exec;
         } catch (Exception $ex) {
             echo $ex->getMessage();
             return false;
         }
-
     }
 
 //R
